@@ -1,5 +1,5 @@
-
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import foxLogo from '../assets/fox-logo.png'
 
 function Navbar() {
@@ -21,7 +21,7 @@ function Navbar() {
     <nav className={`navbar navbar-expand-lg navbar-vixelle ${scrolled ? 'scrolled' : ''}`}>
       <div className="container-fluid px-4 px-lg-5">
 
-        <a className="navbar-brand navbar-logo" href="/">
+        <Link className="navbar-brand navbar-logo" to="/">
           <img
             src={foxLogo}
             alt="Vixelle Leather logo"
@@ -32,7 +32,7 @@ function Navbar() {
             <strong>VIXELLE</strong>
             <small>LEATHER</small>
           </span>
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler border-0"
@@ -53,38 +53,38 @@ function Navbar() {
           <ul className="navbar-nav flex-lg-row gap-lg-4">
 
             <li className="nav-item">
-              <a className="nav-link" href="/">
+              <Link className="nav-link" to="/">
                 <i className="bi bi-house-door"></i>
                 Početna
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="/proizvodi">
+              <Link className="nav-link" to="/proizvodi">
                 <i className="bi bi-bag"></i>
                 Proizvodi
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="/o-nama">
+              <Link className="nav-link" to="/o-nama">
                 <i className="bi bi-info-circle"></i>
                 O nama
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="/korpa">
+              <Link className="nav-link" to="/korpa">
                 <i className="bi bi-bag-heart"></i>
                 Korpa
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="/prijava">
+              <Link className="nav-link" to="/prijava">
                 <i className="bi bi-person"></i>
                 Prijava
-              </a>
+              </Link>
             </li>
 
           </ul>
@@ -96,4 +96,3 @@ function Navbar() {
 }
 
 export default Navbar
-

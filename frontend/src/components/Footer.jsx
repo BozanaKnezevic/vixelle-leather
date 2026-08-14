@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 function Footer() {
   return (
     <footer className="footer-vixelle">
@@ -30,19 +32,19 @@ function Footer() {
             <ul className="footer-links">
 
               <li>
-                <a href="/">Početna</a>
+                <Link to="/">Početna</Link>
               </li>
 
               <li>
-                <a href="/proizvodi">Proizvodi</a>
+                <Link to="/proizvodi">Proizvodi</Link>
               </li>
 
               <li>
-                <a href="/o-nama">O nama</a>
+                <Link to="/o-nama">O nama</Link>
               </li>
 
               <li>
-                <a href="/korpa">Korpa</a>
+                <Link to="/korpa">Korpa</Link>
               </li>
 
             </ul>
@@ -58,15 +60,15 @@ function Footer() {
             <ul className="footer-links">
 
               <li>
-                <a href="/proizvodi?kategorija=zenski">
+                <Link to="/proizvodi?kategorija=zenski">
                   Ženska
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a href="/proizvodi?kategorija=muski">
+                <Link to="/proizvodi?kategorija=muski">
                   Muška
-                </a>
+                </Link>
               </li>
 
             </ul>

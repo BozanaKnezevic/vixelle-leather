@@ -1,8 +1,20 @@
-
-import { useEffect } from 'react'
-import Footer from './Footer'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import Footer from '../components/Footer'
 
 function Home() {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/products')
+      .then((response) => {
+        setProducts(response.data)
+      })
+      .catch((error) => {
+        console.log('Greška pri učitavanju proizvoda:', error)
+      })
+  }, [])
+
   useEffect(() => {
     const elements = document.querySelectorAll('.scroll-reveal')
 
@@ -24,7 +36,7 @@ function Home() {
     return () => {
       elements.forEach((element) => observer.unobserve(element))
     }
-  }, [])
+  }, [products])
 
   return (
     <>
@@ -95,130 +107,50 @@ function Home() {
 
             <div className="row g-4 mt-5">
 
-              {/* PROIZVOD 1 */}
+              {products.map((product, index) => (
 
-              <div className="col-12 col-md-4">
+                <div className="col-12 col-md-4" key={product._id}>
 
-                <div className="product-card scroll-reveal reveal-delay-1">
+                  <div className={`product-card scroll-reveal reveal-delay-${index + 1}`}>
 
-                  <div className="product-image">
+                    <div className="product-image">
 
-                    <img
-                      src="/products/bag-front.png"
-                      alt="Kožna torba"
-                    />
+                      <img
+                        src={product.slikaGlavna}
+                        alt={product.naziv}
+                      />
 
-                    <img
-                      src="/products/bag-side.png"
-                      alt="Kožna torba"
-                      className="image-hover"
-                    />
+                      {product.slikaHover && (
+                        <img
+                          src={product.slikaHover}
+                          alt={product.naziv}
+                          className="image-hover"
+                        />
+                      )}
 
-                  </div>
+                    </div>
 
-                  <div className="product-info">
+                    <div className="product-info">
 
-                    <h3>
-                      Kožna torba
-                    </h3>
+                      <h3>
+                        {product.naziv}
+                      </h3>
 
-                    <p>
-                      Elegantna ženska kožna torba
-                    </p>
+                      <p>
+                        {product.opis}
+                      </p>
 
-                    <strong>
-                      120 €
-                    </strong>
+                      <strong>
+                        {product.cena} €
+                      </strong>
 
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              {/* PROIZVOD 2 */}
-
-              <div className="col-12 col-md-4">
-
-                <div className="product-card scroll-reveal reveal-delay-2">
-
-                  <div className="product-image">
-
-                    <img
-                      src="/products/wallet-front.png"
-                      alt="Kožni novčanik"
-                    />
-
-                    <img
-                      src="/products/wallet-side.jpg"
-                      alt="Kožni novčanik"
-                      className="image-hover"
-                    />
-
-                  </div>
-
-                  <div className="product-info">
-
-                    <h3>
-                      Kožni novčanik
-                    </h3>
-
-                    <p>
-                      Minimalistički ženski novčanik
-                    </p>
-
-                    <strong>
-                      65 €
-                    </strong>
+                    </div>
 
                   </div>
 
                 </div>
 
-              </div>
-
-
-              {/* PROIZVOD 3 */}
-
-              <div className="col-12 col-md-4">
-
-                <div className="product-card scroll-reveal reveal-delay-3">
-
-                  <div className="product-image">
-
-                    <img
-                      src="/products/laptop-bag-front.jpg"
-                      alt="Kožna torba za laptop"
-                    />
-
-                    <img
-                      src="/products/laptop-bag-side.jpg"
-                      alt="Kožna torba za laptop"
-                      className="image-hover"
-                    />
-
-                  </div>
-
-                  <div className="product-info">
-
-                    <h3>
-                      Kožna torba za laptop
-                    </h3>
-
-                    <p>
-                      Elegantna poslovna muška torba za laptop
-                    </p>
-
-                    <strong>
-                      95 €
-                    </strong>
-
-                  </div>
-
-                </div>
-
-              </div>
+              ))}
 
             </div>
 
@@ -227,10 +159,8 @@ function Home() {
 
             <div className="text-center mt-5">
 
-              <a
-                href="/proizvodi"
-                className="products-button scroll-reveal reveal-delay-2"
-              >
+              <a href="/proizvodi"  className="products-button scroll-reveal reveal-delay-2">
+              
                 Pogledaj sve proizvode
                 <i className="bi bi-arrow-right"></i>
               </a>
@@ -296,10 +226,8 @@ function Home() {
                       osmišljeni za svaki dan.
                     </span>
 
-                    <a
-                      href="/proizvodi?kategorija=zene"
-                      className="collection-button"
-                    >
+                     <a href="/proizvodi?kategorija=zene"  className="collection-button">
+                    
                       Istraži kolekciju
                       <i className="bi bi-arrow-right"></i>
                     </a>
@@ -338,10 +266,8 @@ function Home() {
                       sa karakterom.
                     </span>
 
-                    <a
-                      href="/proizvodi?kategorija=muskarci"
-                      className="collection-button"
-                    >
+                     <a href="/proizvodi?kategorija=muskarci"  className="collection-button">
+                    
                       Istraži kolekciju
                       <i className="bi bi-arrow-right"></i>
                     </a>
@@ -366,4 +292,3 @@ function Home() {
 }
 
 export default Home
-
