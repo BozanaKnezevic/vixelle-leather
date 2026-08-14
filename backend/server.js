@@ -15,6 +15,9 @@ app.use(express.json())
 const productRoutes = require('./routes/products')
 app.use('/api/products', productRoutes)
 
+const authRoutes = require('./routes/auth')
+app.use('/api/auth', authRoutes)
+
 // Konekcija na MongoDB bazu
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ Uspešno povezano na MongoDB bazu'))
