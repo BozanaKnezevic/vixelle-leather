@@ -145,6 +145,7 @@
 }
 
 
+
 /* =========================
    HAMBURGER
 ========================= */
@@ -1054,3 +1055,105 @@
   }
 }
 
+/* =========================
+   AUTH (PRIJAVA / REGISTRACIJA)
+========================= */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px 40px;
+
+  background-image: url('/images/login-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-card {
+  background-color: #ffffff;
+  padding: 50px 40px;
+  box-shadow: 0 10px 40px rgba(43, 26, 20, 0.08);
+}
+
+.auth-card h1 {
+  color: #2b1a14;
+  font-family: Georgia, serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #6b5548;
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8cabe;
+  background-color: #f5efe6;
+  color: #2b1a14;
+  font-size: 15px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #c9a66b;
+}
+
+.auth-error {
+  color: #a63d3d;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #2b1a14;
+  color: #f5efe6;
+  border: none;
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.auth-button:hover:not(:disabled) {
+  background-color: #c9a66b;
+  color: #2b1a14;
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 22px;
+  color: #6b5548;
+  font-size: 14px;
+}
+
+.auth-switch span {
+  color: #c9a66b;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.auth-switch span:hover {
+  text-decoration: underline;
+}

@@ -1,9 +1,20 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import foxLogo from '../assets/fox-logo.png'
+
+function ucitajKorisnika() {
+  const podaci = localStorage.getItem('korisnik')
+  return podaci ? JSON.parse(podaci) : null
+}
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [korisnik, setKorisnik] = useState(ucitajKorisnika)
+  
+
+  const location = useLocation()
+  const navigate = useNavigate()
+  const jeHome = location.pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,8 +28,31 @@ function Navbar() {
     }
   }, [])
 
+  useEffect(() => {
+    const osveziKorisnika = () => {
+      setKorisnik(ucitajKorisnika())
+    }
+
+    window.addEventListener('authChange', osveziKorisnika)
+
+    return () => {
+      window.removeEventListener('authChange', osveziKorisnika)
+    }
+  }, [])
+
+  const handleLogout = () => {
+  const potvrda = window.confirm('Odjava?')
+
+  if (potvrda) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('korisnik')
+    window.dispatchEvent(new Event('authChange'))
+    navigate('/')
+  }
+}
+
   return (
-    <nav className={`navbar navbar-expand-lg navbar-vixelle ${scrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar navbar-expand-lg navbar-vixelle ${scrolled || !jeHome ? 'scrolled' : ''}`}>
       <div className="container-fluid px-4 px-lg-5">
 
         <Link className="navbar-brand navbar-logo" to="/">
@@ -80,12 +114,21 @@ function Navbar() {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/prijava">
-                <i className="bi bi-person"></i>
-                Prijava
-              </Link>
-            </li>
+            {korisnik ? (
+              <li className="nav-item">
+                <span className="nav-link" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                  <i className="bi bi-box-arrow-right"></i>
+                  Odjava ({korisnik.ime})
+                </span>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link" to="/prijava">
+                  <i className="bi bi-person"></i>
+                  Prijava
+                </Link>
+              </li>
+            )}
 
           </ul>
         </div>
