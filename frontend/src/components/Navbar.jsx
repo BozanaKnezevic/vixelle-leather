@@ -114,6 +114,15 @@ function Navbar() {
               </Link>
             </li>
 
+            {korisnik && korisnik.uloga === 'admin' && (
+             <li className="nav-item">
+              <Link className="nav-link" to="/admin">
+               <i className="bi bi-clipboard-data"></i>
+                Admin panel
+              </Link>
+            </li>
+            )}
+
             {korisnik ? (
               <li className="nav-item">
                 <span className="nav-link" onClick={handleLogout} style={{ cursor: 'pointer' }}>

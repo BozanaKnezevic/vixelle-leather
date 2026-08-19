@@ -1314,3 +1314,178 @@
   font-size: 14px;
   margin-bottom: 20px;
 }
+
+/* =========================
+   ADMIN PAGE
+========================= */
+.admin-page {
+  min-height: 100vh;
+  padding: 130px 20px 80px;
+
+  background-image: url('/images/login-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.admin-page h1 {
+  color: #2b1a14;
+  font-family: Georgia, serif;
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-button-add {
+  background-color: #2b1a14;
+  color: #f5efe6;
+  border: none;
+  padding: 12px 22px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.admin-button-add:hover {
+  background-color: #c9a66b;
+  color: #2b1a14;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5dcc9;
+  font-size: 14px;
+  color: #2b1a14;
+}
+
+.admin-table th {
+  background-color: #ebdcc5;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.admin-table-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.admin-btn-edit,
+.admin-btn-delete {
+  border: none;
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.admin-btn-edit {
+  background-color: #c9a66b;
+  color: #2b1a14;
+}
+
+.admin-btn-delete {
+  background-color: #a63d3d;
+  color: #ffffff;
+}
+
+.admin-btn-edit:hover,
+.admin-btn-delete:hover {
+  opacity: 0.85;
+}
+
+
+.admin-modal {
+  position: relative;
+  background-color: #ffffff;
+  padding: 35px 40px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.admin-modal h2 {
+  color: #2b1a14;
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 25px;
+}
+
+.admin-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  background: none;
+  border: none;
+
+  font-size: 28px;
+  line-height: 1;
+  color: #6b5548;
+
+  cursor: pointer;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-modal-close:hover {
+  color: #2b1a14;
+}
+
+.admin-modal .form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8cabe;
+  background-color: #f5efe6;
+  color: #2b1a14;
+  font-size: 15px;
+}
+
+.admin-modal-dugmad {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background-color: rgba(43, 26, 20, 0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 2000;
+
+  padding: 20px;
+}

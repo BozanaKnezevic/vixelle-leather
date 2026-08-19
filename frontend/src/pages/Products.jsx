@@ -114,30 +114,31 @@ function Products() {
                 </div>
 
                 <div className="filter-group">
-  <h4>Tip proizvoda</h4>
+                 <h4>Tip proizvoda</h4>
 
-  <label>
-    <input
-      type="radio"
-      name="tip"
-      checked={tip === 'sve'}
-      onChange={() => setTip('sve')}
-    />
-    Sve
-  </label>
+                 <label>
+                   <input
+                   type="radio"
+                   name="tip"
+                   checked={tip === 'sve'}
+                   onChange={() => setTip('sve')}
+                   />
+                  Sve
+                 </label>
 
-  {sviTipovi.map((t) => (
-    <label key={t}>
-      <input
-        type="radio"
-        name="tip"
-        checked={tip === t}
-        onChange={() => setTip(t)}
-      />
-      {naziviTipova[t] || t}
-    </label>
-  ))}
-</div>
+                 {sviTipovi.map((t) => (
+                  <label key={t}>
+                   <input
+                   type="radio"
+                   name="tip"
+                   checked={tip === t}
+                   onChange={() => setTip(t)}
+                   />
+                   {naziviTipova[t] || t}
+                 </label>
+                 ))}
+
+               </div>
 
                 <div className="filter-group">
                   <h4>Boja</h4>
