@@ -17,6 +17,14 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true // npr. "zene", "muskarci"
   },
+  boja: {
+    type: String,
+    required: true
+  },
+   tip: {
+    type: String,
+    required: true
+  },
   slikaGlavna: {
     type: String,
     required: true // putanja do slike, npr. "/products/bag-front.png"

@@ -11,6 +11,8 @@ const products = [
     opis: 'Elegantna ženska kožna torba',
     cena: 120,
     kategorija: 'zene',
+    boja: 'braon',
+    tip: 'torbe',
     slikaGlavna: '/products/bag-front.png',
     slikaHover: '/products/bag-side.png'
   },
@@ -19,6 +21,8 @@ const products = [
     opis: 'Minimalistički ženski novčanik',
     cena: 65,
     kategorija: 'zene',
+    boja: 'braon',
+    tip: 'novcanici',
     slikaGlavna: '/products/wallet-front.png',
     slikaHover: '/products/wallet-side.jpg'
   },
@@ -27,6 +31,8 @@ const products = [
     opis: 'Elegantna poslovna muška torba za laptop',
     cena: 95,
     kategorija: 'muskarci',
+    boja: 'braon',
+    tip: 'torbe-za-laptop',
     slikaGlavna: '/products/laptop-bag-front.jpg',
     slikaHover: '/products/laptop-bag-side.jpg'
   }

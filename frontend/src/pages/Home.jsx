@@ -42,10 +42,6 @@ function Home() {
     <>
       <main className="home">
 
-        {/* =========================
-            HERO
-        ========================= */}
-
         <section className="hero">
 
           <img
@@ -79,10 +75,6 @@ function Home() {
 
         </section>
 
-
-        {/* =========================
-            IZDVOJENI PROIZVODI
-        ========================= */}
 
         <section className="featured-products">
 
@@ -155,12 +147,9 @@ function Home() {
             </div>
 
 
-            {/* DUGME */}
-
             <div className="text-center mt-5">
 
-              <a href="/proizvodi"  className="products-button scroll-reveal reveal-delay-2">
-              
+              <a href="/proizvodi" className="products-button scroll-reveal reveal-delay-2">
                 Pogledaj sve proizvode
                 <i className="bi bi-arrow-right"></i>
               </a>
@@ -171,10 +160,6 @@ function Home() {
 
         </section>
 
-
-        {/* =========================
-            KOLEKCIJE
-        ========================= */}
 
         <section className="collections py-5">
 
@@ -198,8 +183,6 @@ function Home() {
 
 
             <div className="row g-4">
-
-              {/* ŽENSKA KOLEKCIJA */}
 
               <div className="col-12 col-md-6">
 
@@ -226,8 +209,7 @@ function Home() {
                       osmišljeni za svaki dan.
                     </span>
 
-                     <a href="/proizvodi?kategorija=zene"  className="collection-button">
-                    
+                    <a href="/proizvodi?kategorija=zene" className="collection-button">
                       Istraži kolekciju
                       <i className="bi bi-arrow-right"></i>
                     </a>
@@ -238,8 +220,6 @@ function Home() {
 
               </div>
 
-
-              {/* MUŠKA KOLEKCIJA */}
 
               <div className="col-12 col-md-6">
 
@@ -266,8 +246,7 @@ function Home() {
                       sa karakterom.
                     </span>
 
-                     <a href="/proizvodi?kategorija=muskarci"  className="collection-button">
-                    
+                    <a href="/proizvodi?kategorija=muskarci" className="collection-button">
                       Istraži kolekciju
                       <i className="bi bi-arrow-right"></i>
                     </a>

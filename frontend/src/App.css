@@ -218,6 +218,7 @@
   display: block;
 }
 
+
 .hero-overlay {
   position: absolute;
 
@@ -359,7 +360,6 @@
     max-width: 400px;
   }
 }
-
 
 /* =========================
    IZDVOJENI PROIZVODI
@@ -1156,4 +1156,161 @@
 
 .auth-switch span:hover {
   text-decoration: underline;
+}
+
+
+/* =========================
+   PRODUCTS PAGE
+========================= */
+
+.products-page {
+  background-color: #f5efe6;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.products-content {
+  padding: 60px 20px 80px;
+}
+
+.filters-sidebar {
+  background-color: #ffffff;
+  padding: 30px 25px;
+}
+
+.filter-group {
+  margin-bottom: 30px;
+}
+
+.filter-group:last-of-type {
+  margin-bottom: 20px;
+}
+
+.filter-group h4 {
+  color: #2b1a14;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.filter-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #6b5548;
+  font-size: 14px;
+
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.filter-group input[type="radio"] {
+  accent-color: #c9a66b;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.filter-reset {
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: 1px solid #2b1a14;
+  color: #2b1a14;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-reset:hover {
+  background-color: #2b1a14;
+  color: #f5efe6;
+}
+
+.products-hero {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+
+  background-image: url('/images/products-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.products-hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 40px;
+
+ 
+}
+
+.products-hero-eyebrow {
+  color: #c9a66b;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  margin: 0 0 18px;
+}
+
+.products-hero-overlay h1 {
+  color: #f5efe6;
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.05;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .products-hero {
+    height: 200px;
+    background-attachment: scroll;
+  }
+
+  .products-hero-overlay {
+    padding: 25px;
+  }
+}
+
+
+.filter-cena {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-cena input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d8cabe;
+  background-color: #f5efe6;
+  color: #2b1a14;
+  font-size: 14px;
+}
+
+.filter-cena input:focus {
+  outline: none;
+  border-color: #c9a66b;
+}
+
+.filter-cena span {
+  color: #a89484;
+}
+
+.products-count {
+  color: #6b5548;
+  font-size: 14px;
+  margin-bottom: 20px;
 }
