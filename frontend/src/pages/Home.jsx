@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Footer from '../components/Footer'
 
@@ -37,6 +38,10 @@ function Home() {
       elements.forEach((element) => observer.unobserve(element))
     }
   }, [products])
+
+  const jedinstveniProizvodi = products.filter(
+    (product, index, niz) => niz.findIndex((p) => p.naziv === product.naziv) === index
+  )
 
   return (
     <>
@@ -99,11 +104,11 @@ function Home() {
 
             <div className="row g-4 mt-5">
 
-              {products.map((product, index) => (
+              {jedinstveniProizvodi.slice(0, 3).map((product, index) => (
 
                 <div className="col-12 col-md-4" key={product._id}>
 
-                  <div className={`product-card scroll-reveal reveal-delay-${index + 1}`}>
+                  <Link to={`/proizvodi/${product._id}`} className={`product-card scroll-reveal reveal-delay-${index + 1}`}>
 
                     <div className="product-image">
 
@@ -138,7 +143,7 @@ function Home() {
 
                     </div>
 
-                  </div>
+                  </Link>
 
                 </div>
 

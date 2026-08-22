@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import Footer from '../components/Footer'
+import ProductCard from '../components/ProductCard'
 
 const naziviTipova = {
   'torbe': 'Torbe',
@@ -42,14 +43,31 @@ function Products() {
   const sveBoje = [...new Set(products.map((product) => product.boja))]
   const sviTipovi = [...new Set(products.map((product) => product.tip))]
 
-  const filtriraniProizvodi = products.filter((product) => {
+  const jedinstveniProizvodi = products.filter(
+    (product, index, niz) => niz.findIndex((p) => p.naziv === product.naziv) === index
+  )
+
+  const filtriraniProizvodi = jedinstveniProizvodi
+  .map((product) => {
+    if (boja !== 'sve') {
+      const tacnaVarijanta = products.find(
+        (p) => p.naziv === product.naziv && p.boja === boja
+      )
+      return tacnaVarijanta || product
+    }
+    return product
+  })
+  .filter((product) => {
     if (kategorija !== 'sve' && product.kategorija !== kategorija) return false
     if (tip !== 'sve' && product.tip !== tip) return false
-    if (boja !== 'sve' && product.boja !== boja) return false
     if (cenaMin !== '' && product.cena < Number(cenaMin)) return false
     if (cenaMax !== '' && product.cena > Number(cenaMax)) return false
+
+    if (boja !== 'sve' && product.boja !== boja) return false
+
     return true
   })
+  
 
   const resetujFiltere = () => {
     setSearchParams({})
@@ -114,31 +132,31 @@ function Products() {
                 </div>
 
                 <div className="filter-group">
-                 <h4>Tip proizvoda</h4>
+                  <h4>Tip proizvoda</h4>
 
-                 <label>
-                   <input
-                   type="radio"
-                   name="tip"
-                   checked={tip === 'sve'}
-                   onChange={() => setTip('sve')}
-                   />
-                  Sve
-                 </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="tip"
+                      checked={tip === 'sve'}
+                      onChange={() => setTip('sve')}
+                    />
+                    Sve
+                  </label>
 
-                 {sviTipovi.map((t) => (
-                  <label key={t}>
-                   <input
-                   type="radio"
-                   name="tip"
-                   checked={tip === t}
-                   onChange={() => setTip(t)}
-                   />
-                   {naziviTipova[t] || t}
-                 </label>
-                 ))}
+                  {sviTipovi.map((t) => (
+                    <label key={t}>
+                      <input
+                        type="radio"
+                        name="tip"
+                        checked={tip === t}
+                        onChange={() => setTip(t)}
+                      />
+                      {naziviTipova[t] || t}
+                    </label>
+                  ))}
 
-               </div>
+                </div>
 
                 <div className="filter-group">
                   <h4>Boja</h4>
@@ -207,7 +225,7 @@ function Products() {
 
               {!ucitavanje && filtriraniProizvodi.length > 0 && (
                 <p className="products-count">
-                 {filtriraniProizvodi.length} {filtriraniProizvodi.length === 1 ? 'proizvod' : 'proizvoda'}
+                  {filtriraniProizvodi.length} {filtriraniProizvodi.length === 1 ? 'proizvod' : 'proizvoda'}
                 </p>
               )}
 
@@ -216,35 +234,11 @@ function Products() {
                 {filtriraniProizvodi.map((product) => (
 
                   <div className="col-12 col-sm-6 col-md-4" key={product._id}>
-
-                    <div className="product-card">
-
-                      <div className="product-image">
-
-                        <img
-                          src={product.slikaGlavna}
-                          alt={product.naziv}
-                        />
-
-                        {product.slikaHover && (
-                          <img
-                            src={product.slikaHover}
-                            alt={product.naziv}
-                            className="image-hover"
-                          />
-                        )}
-
-                      </div>
-
-                      <div className="product-info">
-                        <h3>{product.naziv}</h3>
-                        <p>{product.opis}</p>
-                        <strong>{product.cena} €</strong>
-                      </div>
-
-                    </div>
-
-                  </div>
+  <ProductCard
+    product={product}
+    sveVarijante={products.filter((p) => p.naziv === product.naziv)}
+  />
+</div>
 
                 ))}
 

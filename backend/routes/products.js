@@ -12,7 +12,20 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 })
+// GET /api/products/:id - vrati jedan proizvod po ID-ju
+router.get('/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id)
 
+    if (!product) {
+      return res.status(404).json({ message: 'Proizvod nije pronađen' })
+    }
+
+    res.json(product)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
 // POST /api/products - dodaj novi proizvod (samo admin)
 router.post('/', proveriToken, proveriAdmina, async (req, res) => {
   try {

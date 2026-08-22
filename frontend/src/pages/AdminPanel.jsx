@@ -15,7 +15,8 @@ function AdminPanel() {
     tip: 'torbe',
     boja: '',
     slikaGlavna: '',
-    slikaHover: ''
+    slikaHover: '',
+    slike: []
   })
 
   useEffect(() => {
@@ -62,6 +63,30 @@ function AdminPanel() {
     })
   }
 
+  const dodajPoljeZaSliku = () => {
+    setNoviProizvod({
+      ...noviProizvod,
+      slike: [...noviProizvod.slike, '']
+    })
+  }
+
+  const izmeniSliku = (index, vrednost) => {
+    const noveSlike = [...noviProizvod.slike]
+    noveSlike[index] = vrednost
+    setNoviProizvod({
+      ...noviProizvod,
+      slike: noveSlike
+    })
+  }
+
+  const ukloniSliku = (index) => {
+    const noveSlike = noviProizvod.slike.filter((_, i) => i !== index)
+    setNoviProizvod({
+      ...noviProizvod,
+      slike: noveSlike
+    })
+  }
+
   const otvoriFormuZaDodavanje = () => {
     setNoviProizvod({
       naziv: '',
@@ -71,7 +96,8 @@ function AdminPanel() {
       tip: 'torbe',
       boja: '',
       slikaGlavna: '',
-      slikaHover: ''
+      slikaHover: '',
+      slike: []
     })
     setIzmenaId(null)
     setPrikaziForma(true)
@@ -86,7 +112,8 @@ function AdminPanel() {
       tip: product.tip,
       boja: product.boja,
       slikaGlavna: product.slikaGlavna,
-      slikaHover: product.slikaHover || ''
+      slikaHover: product.slikaHover || '',
+      slike: product.slike || []
     })
     setIzmenaId(product._id)
     setPrikaziForma(true)
@@ -268,6 +295,32 @@ function AdminPanel() {
                     onChange={handleFormChange}
                     placeholder="/products/naziv-slike-2.png"
                   />
+                </div>
+
+                <div className="form-group">
+                  <label>Sve slike za galeriju (opciono)</label>
+
+                  {noviProizvod.slike.map((slika, index) => (
+                    <div key={index} className="admin-slika-red">
+                      <input
+                        type="text"
+                        value={slika}
+                        onChange={(e) => izmeniSliku(index, e.target.value)}
+                        placeholder="/products/naziv-slike.png"
+                      />
+                      <button
+                        type="button"
+                        className="admin-slika-ukloni"
+                        onClick={() => ukloniSliku(index)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+
+                  <button type="button" className="admin-slika-dodaj" onClick={dodajPoljeZaSliku}>
+                    + Dodaj sliku
+                  </button>
                 </div>
 
                 <div className="admin-modal-dugmad">

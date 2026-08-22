@@ -31,7 +31,11 @@ const productSchema = new mongoose.Schema({
   },
   slikaHover: {
     type: String // opciono - druga slika za hover efekat
-  }
+  },
+  slike: {
+  type: [String],
+  default: []
+}
 }, {
   timestamps: true // automatski dodaje "createdAt" i "updatedAt"
 })

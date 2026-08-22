@@ -14,7 +14,19 @@ const products = [
     boja: 'braon',
     tip: 'torbe',
     slikaGlavna: '/products/bag-front.png',
-    slikaHover: '/products/bag-side.png'
+    slikaHover: '/products/bag-side.png',
+    slike: ['/products/bag-front.png', '/products/bag-side.png']
+  },
+  {
+    naziv: 'Kožna torba',
+    opis: 'Elegantna ženska kožna torba',
+    cena: 120,
+    kategorija: 'zene',
+    boja: 'crna',
+    tip: 'torbe',
+    slikaGlavna: '/products/bag-front.png',
+    slikaHover: '/products/bag-side.png',
+    slike: ['/products/bag-front.png', '/products/bag-side.png']
   },
   {
     naziv: 'Kožni novčanik',
@@ -24,7 +36,8 @@ const products = [
     boja: 'braon',
     tip: 'novcanici',
     slikaGlavna: '/products/wallet-front.png',
-    slikaHover: '/products/wallet-side.jpg'
+    slikaHover: '/products/wallet-side.jpg',
+    slike: ['/products/wallet-front.png', '/products/wallet-side.jpg']
   },
   {
     naziv: 'Kožna torba za laptop',
@@ -34,7 +47,8 @@ const products = [
     boja: 'braon',
     tip: 'torbe-za-laptop',
     slikaGlavna: '/products/laptop-bag-front.jpg',
-    slikaHover: '/products/laptop-bag-side.jpg'
+    slikaHover: '/products/laptop-bag-side.jpg',
+    slike: ['/products/laptop-bag-front.jpg', '/products/laptop-bag-side.jpg']
   }
 ]
 
