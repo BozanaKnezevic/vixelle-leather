@@ -24,6 +24,8 @@ function Products() {
   const [cenaMin, setCenaMin] = useState('')
   const [cenaMax, setCenaMax] = useState('')
   const [tip, setTip] = useState('sve')
+  const [trenutnaStranica, setTrenutnaStranica] = useState(1)
+  const proizvodaPoStranici = 6
 
   const kategorija = searchParams.get('kategorija') || 'sve'
 
@@ -39,6 +41,10 @@ function Products() {
       })
   }, [])
 
+  useEffect(() => {
+    setTrenutnaStranica(1)
+  }, [kategorija, tip, boja, cenaMin, cenaMax])
+
   // Sve dostupne boje, izvučene iz proizvoda (bez ponavljanja)
   const sveBoje = [...new Set(products.map((product) => product.boja))]
   const sviTipovi = [...new Set(products.map((product) => product.tip))]
@@ -48,26 +54,30 @@ function Products() {
   )
 
   const filtriraniProizvodi = jedinstveniProizvodi
-  .map((product) => {
-    if (boja !== 'sve') {
-      const tacnaVarijanta = products.find(
-        (p) => p.naziv === product.naziv && p.boja === boja
-      )
-      return tacnaVarijanta || product
-    }
-    return product
-  })
-  .filter((product) => {
-    if (kategorija !== 'sve' && product.kategorija !== kategorija) return false
-    if (tip !== 'sve' && product.tip !== tip) return false
-    if (cenaMin !== '' && product.cena < Number(cenaMin)) return false
-    if (cenaMax !== '' && product.cena > Number(cenaMax)) return false
+    .map((product) => {
+      if (boja !== 'sve') {
+        const tacnaVarijanta = products.find(
+          (p) => p.naziv === product.naziv && p.boja === boja
+        )
+        return tacnaVarijanta || product
+      }
+      return product
+    })
+    .filter((product) => {
+      if (kategorija !== 'sve' && product.kategorija !== kategorija) return false
+      if (tip !== 'sve' && product.tip !== tip) return false
+      if (cenaMin !== '' && product.cena < Number(cenaMin)) return false
+      if (cenaMax !== '' && product.cena > Number(cenaMax)) return false
 
-    if (boja !== 'sve' && product.boja !== boja) return false
+      if (boja !== 'sve' && product.boja !== boja) return false
 
-    return true
-  })
-  
+      return true
+    })
+
+  const ukupnoStranica = Math.ceil(filtriraniProizvodi.length / proizvodaPoStranici)
+
+  const pocetniIndex = (trenutnaStranica - 1) * proizvodaPoStranici
+  const prikazaniProizvodi = filtriraniProizvodi.slice(pocetniIndex, pocetniIndex + proizvodaPoStranici)
 
   const resetujFiltere = () => {
     setSearchParams({})
@@ -75,6 +85,7 @@ function Products() {
     setBoja('sve')
     setCenaMin('')
     setCenaMax('')
+    setTrenutnaStranica(1)
   }
 
   return (
@@ -231,18 +242,46 @@ function Products() {
 
               <div className="row g-4">
 
-                {filtriraniProizvodi.map((product) => (
+                {prikazaniProizvodi.map((product) => (
 
                   <div className="col-12 col-sm-6 col-md-4" key={product._id}>
-  <ProductCard
-    product={product}
-    sveVarijante={products.filter((p) => p.naziv === product.naziv)}
-  />
-</div>
+                    <ProductCard
+                      product={product}
+                      sveVarijante={products.filter((p) => p.naziv === product.naziv)}
+                    />
+                  </div>
 
                 ))}
 
               </div>
+
+              {ukupnoStranica > 1 && (
+                <div className="pagination">
+                  <button
+                    onClick={() => setTrenutnaStranica(trenutnaStranica - 1)}
+                    disabled={trenutnaStranica === 1}
+                  >
+                    ← Prethodna
+                  </button>
+
+                  {Array.from({ length: ukupnoStranica }, (_, i) => i + 1).map((broj) => (
+                    <button
+                      key={broj}
+                      className={trenutnaStranica === broj ? 'active' : ''}
+                      onClick={() => setTrenutnaStranica(broj)}
+                    >
+                      {broj}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => setTrenutnaStranica(trenutnaStranica + 1)}
+                    disabled={trenutnaStranica === ukupnoStranica}
+                  >
+                    Sledeća →
+                  </button>
+                </div>
+              )}
 
             </div>
 
