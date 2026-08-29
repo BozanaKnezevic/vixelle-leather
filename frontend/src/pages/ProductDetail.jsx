@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Footer from '../components/Footer'
+import { dodajUKorpu } from '../utils/cart'
+import Toast from '../components/Toast'
 
 function ProductDetail() {
   const { id } = useParams()
@@ -10,6 +12,8 @@ function ProductDetail() {
   const [aktivnaSlika, setAktivnaSlika] = useState('')
   const [ucitavanje, setUcitavanje] = useState(true)
   const [greska, setGreska] = useState(false)
+  const navigate = useNavigate()
+  const [prikaziToast, setPrikaziToast] = useState(false)
 
   useEffect(() => {
     setUcitavanje(true)
@@ -38,6 +42,29 @@ function ProductDetail() {
     ucitajSve()
   }, [id])
 
+  const handleDodajUKorpu = () => {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    navigate('/prijava', {
+      state: { poruka: 'Morate biti ulogovani da biste dodali proizvod u korpu.' }
+    })
+    return
+  }
+
+  dodajUKorpu(product)
+  prikaziObavestenje()
+}
+
+const prikaziObavestenje = () => {
+  setPrikaziToast(true)
+  setTimeout(() => {
+    setPrikaziToast(false)
+  }, 2500)
+}
+
+
+
   if (ucitavanje) {
     return (
       <div className="product-detail-page">
@@ -63,6 +90,9 @@ function ProductDetail() {
 
   return (
     <>
+
+    <Toast poruka="Proizvod je dodat u korpu!" vidljiv={prikaziToast} />
+    
       <main className="product-detail-page">
 
         <div className="container">
@@ -136,7 +166,7 @@ function ProductDetail() {
                     </div>
                   )}
 
-                  <button className="hero-button">
+                  <button className="hero-button" onClick={handleDodajUKorpu}>
                     Dodaj u korpu
                     <i className="bi bi-bag-plus"></i>
                   </button>

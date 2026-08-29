@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function Login() {
   const [mod, setMod] = useState('prijava') // 'prijava' ili 'registracija'
@@ -9,6 +9,8 @@ function Login() {
   const [lozinka, setLozinka] = useState('')
   const [greska, setGreska] = useState('')
   const [ucitavanje, setUcitavanje] = useState(false)
+  const location = useLocation()
+  const porukaIzNavigacije = location.state?.poruka
 
   const navigate = useNavigate()
 
@@ -88,6 +90,10 @@ function Login() {
               <h1>
                 {mod === 'prijava' ? 'Prijava' : 'Registracija'}
               </h1>
+
+              {porukaIzNavigacije && (
+                <p className="auth-info-message">{porukaIzNavigacije}</p>
+              )}
 
               <form onSubmit={handleSubmit}>
 
