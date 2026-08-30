@@ -1,10 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
-import { ucitajKorpu, ukloniIzKorpe, izmeniKolicinu, ukupnaCena } from '../utils/cart'
+import { ucitajKorpu, ukloniIzKorpe, izmeniKolicinu, ukupnaCena, sacuvajKorpu } from '../utils/cart'
+import axios from 'axios'
 
 function Cart() {
   const [stavke, setStavke] = useState([])
+  const [saljemo, setSaljemo] = useState(false)
+  const [porudzbinaPoslata, setPorudzbinaPoslata] = useState(false)
+  const [prikaziFormu, setPrikaziFormu] = useState(false)
+  const [greskaForma, setGreskaForma] = useState('')
+  const [dostava, setDostava] = useState({
+    imePrezime: '',
+    adresa: '',
+    grad: '',
+    telefon: ''
+  })
 
   useEffect(() => {
     osveziKorpu()
@@ -28,6 +39,85 @@ function Cart() {
     izmeniKolicinu(id, novaKolicina)
   }
 
+  const handleDostavaChange = (e) => {
+    setDostava({
+      ...dostava,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const zavrsiKupovinu = async (e) => {
+    e.preventDefault()
+    setGreskaForma('')
+
+    if (dostava.imePrezime.trim() === '') {
+      setGreskaForma('Unesite ime i prezime')
+      return
+    }
+
+    if (dostava.adresa.trim() === '') {
+      setGreskaForma('Unesite adresu')
+      return
+    }
+
+    if (dostava.grad.trim() === '') {
+      setGreskaForma('Unesite grad')
+      return
+    }
+
+    const telefonRegex = /^[0-9+\s-]{6,15}$/
+    if (!telefonRegex.test(dostava.telefon)) {
+      setGreskaForma('Unesite validan broj telefona (npr. 060 123 4567)')
+      return
+    }
+
+    setSaljemo(true)
+
+    try {
+      const token = localStorage.getItem('token')
+
+      await axios.post('http://localhost:5000/api/orders', {
+        stavke: stavke,
+        dostava: dostava,
+        ukupnaCena: ukupnaCena()
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      sacuvajKorpu([])
+      setPorudzbinaPoslata(true)
+
+    } catch (error) {
+  alert('Greška pri slanju porudžbine. Pokušajte ponovo.')
+  console.log('Detalji greske:', error.response?.data)
+} finally {
+      setSaljemo(false)
+    }
+  }
+
+  if (porudzbinaPoslata) {
+    return (
+      <>
+        <main className="cart-page">
+          <div className="container">
+            <div className="cart-empty">
+              <i className="bi bi-check-circle"></i>
+              <h1>Hvala na porudžbini!</h1>
+              <p>Vaša porudžbina je uspešno primljena i biće uskoro obrađena.</p>
+              <Link to="/proizvodi" className="hero-button">
+                Nastavi kupovinu
+                <i className="bi bi-arrow-right"></i>
+              </Link>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </>
+    )
+  }
+
   if (stavke.length === 0) {
     return (
       <>
@@ -39,7 +129,6 @@ function Cart() {
               <p>Pogledajte našu kolekciju i pronađite nešto za sebe.</p>
               <Link to="/proizvodi" className="hero-button">
                 Pogledaj proizvode
-                
                 <i className="bi bi-arrow-right"></i>
               </Link>
             </div>
@@ -134,7 +223,10 @@ function Cart() {
                   <strong>{ukupnaCena().toFixed(2)} €</strong>
                 </div>
 
-                <button className="hero-button cart-checkout-button">
+                <button
+                  className="hero-button cart-checkout-button"
+                  onClick={() => setPrikaziFormu(true)}
+                >
                   Završi kupovinu
                   <i className="bi bi-arrow-right"></i>
                 </button>
@@ -144,6 +236,77 @@ function Cart() {
             </div>
 
           </div>
+
+          {prikaziFormu && (
+            <div className="modal-overlay" onClick={() => setPrikaziFormu(false)}>
+              <div className="admin-modal" onClick={(e) => e.stopPropagation()}>
+
+                <button className="admin-modal-close" onClick={() => setPrikaziFormu(false)}>
+                  ×
+                </button>
+
+                <h2>Podaci za dostavu</h2>
+
+                <form onSubmit={zavrsiKupovinu}>
+
+                  <div className="form-group">
+                    <label>Ime i prezime</label>
+                    <input
+                      type="text"
+                      name="imePrezime"
+                      value={dostava.imePrezime}
+                      onChange={handleDostavaChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Adresa</label>
+                    <input
+                      type="text"
+                      name="adresa"
+                      value={dostava.adresa}
+                      onChange={handleDostavaChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Grad</label>
+                    <input
+                      type="text"
+                      name="grad"
+                      value={dostava.grad}
+                      onChange={handleDostavaChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Telefon</label>
+                    <input
+                      type="text"
+                      name="telefon"
+                      value={dostava.telefon}
+                      onChange={handleDostavaChange}
+                    />
+                  </div>
+
+                  {greskaForma && (
+                    <p className="auth-error">{greskaForma}</p>
+                  )}
+
+                  <div className="admin-modal-dugmad">
+                    <button type="button" className="modal-otkazi" onClick={() => setPrikaziFormu(false)}>
+                      Otkaži
+                    </button>
+                    <button type="submit" className="admin-button-add" disabled={saljemo}>
+                      {saljemo ? 'Slanje...' : 'Potvrdi porudžbinu'}
+                    </button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          )}
 
         </div>
 

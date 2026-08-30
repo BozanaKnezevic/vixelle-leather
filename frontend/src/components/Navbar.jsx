@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import foxLogo from '../assets/fox-logo.png'
+import { ukupnaKolicina } from '../utils/cart'
 
 function ucitajKorisnika() {
   const podaci = localStorage.getItem('korisnik')
@@ -10,6 +11,7 @@ function ucitajKorisnika() {
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [korisnik, setKorisnik] = useState(ucitajKorisnika)
+  const [brojKorpe, setBrojKorpe] = useState(ukupnaKolicina)
   
 
   const location = useLocation()
@@ -39,6 +41,18 @@ function Navbar() {
       window.removeEventListener('authChange', osveziKorisnika)
     }
   }, [])
+
+  useEffect(() => {
+  const osveziKorpu = () => {
+    setBrojKorpe(ukupnaKolicina())
+  }
+
+  window.addEventListener('cartChange', osveziKorpu)
+
+  return () => {
+    window.removeEventListener('cartChange', osveziKorpu)
+  }
+}, [])
 
   const handleLogout = () => {
   const potvrda = window.confirm('Odjava?')
@@ -111,8 +125,12 @@ function Navbar() {
               <Link className="nav-link" to="/korpa">
                 <i className="bi bi-bag-heart"></i>
                 Korpa
-              </Link>
-            </li>
+                {brojKorpe > 0 && (
+                  <span className="cart-badge">{brojKorpe}</span>
+                )}
+             </Link>
+           </li>
+
 
             {korisnik && korisnik.uloga === 'admin' && (
              <li className="nav-item">
