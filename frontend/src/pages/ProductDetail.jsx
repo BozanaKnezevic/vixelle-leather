@@ -4,6 +4,7 @@ import axios from 'axios'
 import Footer from '../components/Footer'
 import { dodajUKorpu } from '../utils/cart'
 import Toast from '../components/Toast'
+import { useCurrency } from '../context/CurrencyContext'
 
 function ProductDetail() {
   const { id } = useParams()
@@ -14,6 +15,8 @@ function ProductDetail() {
   const [greska, setGreska] = useState(false)
   const navigate = useNavigate()
   const [prikaziToast, setPrikaziToast] = useState(false)
+
+  const { formatirajCenu } = useCurrency()
 
   useEffect(() => {
     setUcitavanje(true)
@@ -43,27 +46,25 @@ function ProductDetail() {
   }, [id])
 
   const handleDodajUKorpu = () => {
-  const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token')
 
-  if (!token) {
-    navigate('/prijava', {
-      state: { poruka: 'Morate biti ulogovani da biste dodali proizvod u korpu.' }
-    })
-    return
+    if (!token) {
+      navigate('/prijava', {
+        state: { poruka: 'Morate biti ulogovani da biste dodali proizvod u korpu.' }
+      })
+      return
+    }
+
+    dodajUKorpu(product)
+    prikaziObavestenje()
   }
 
-  dodajUKorpu(product)
-  prikaziObavestenje()
-}
-
-const prikaziObavestenje = () => {
-  setPrikaziToast(true)
-  setTimeout(() => {
-    setPrikaziToast(false)
-  }, 2500)
-}
-
-
+  const prikaziObavestenje = () => {
+    setPrikaziToast(true)
+    setTimeout(() => {
+      setPrikaziToast(false)
+    }, 2500)
+  }
 
   if (ucitavanje) {
     return (
@@ -85,14 +86,14 @@ const prikaziObavestenje = () => {
   }
 
   const slike = product.slike && product.slike.length > 0
-  ? product.slike
-  : [product.slikaGlavna, product.slikaHover].filter(Boolean)
+    ? product.slike
+    : [product.slikaGlavna, product.slikaHover].filter(Boolean)
 
   return (
     <>
 
-    <Toast poruka="Proizvod je dodat u korpu!" vidljiv={prikaziToast} />
-    
+      <Toast poruka="Proizvod je dodat u korpu!" vidljiv={prikaziToast} />
+
       <main className="product-detail-page">
 
         <div className="container">
@@ -139,7 +140,9 @@ const prikaziObavestenje = () => {
 
                   <h1>{product.naziv}</h1>
 
-                  <strong className="product-detail-price">{product.cena} €</strong>
+                  <strong className="product-detail-price">
+                    {formatirajCenu(product.cena)}
+                  </strong>
 
                   <p className="product-detail-desc">{product.opis}</p>
 

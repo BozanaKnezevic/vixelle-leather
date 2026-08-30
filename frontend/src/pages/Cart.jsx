@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import { ucitajKorpu, ukloniIzKorpe, izmeniKolicinu, ukupnaCena, sacuvajKorpu } from '../utils/cart'
 import axios from 'axios'
+import { useCurrency } from '../context/CurrencyContext'
 
 function Cart() {
   const [stavke, setStavke] = useState([])
@@ -16,6 +17,7 @@ function Cart() {
     grad: '',
     telefon: ''
   })
+  const { formatirajCenu } = useCurrency()
 
   useEffect(() => {
     osveziKorpu()
@@ -167,7 +169,7 @@ function Cart() {
                           Boja: {item.boja.charAt(0).toUpperCase() + item.boja.slice(1)}
                         </p>
                       )}
-                      <strong>{item.cena} €</strong>
+                      <strong>{formatirajCenu(item.cena)}</strong>
                     </div>
 
                     <div className="cart-item-qty">
@@ -177,7 +179,7 @@ function Cart() {
                     </div>
 
                     <div className="cart-item-subtotal">
-                      {(item.cena * item.kolicina).toFixed(2)} €
+                      {formatirajCenu(item.cena * item.kolicina)}
                     </div>
 
                     <button
@@ -220,7 +222,7 @@ function Cart() {
 
                 <div className="cart-summary-total">
                   <span>Ukupno</span>
-                  <strong>{ukupnaCena().toFixed(2)} €</strong>
+                  <strong>{formatirajCenu(ukupnaCena())}</strong>
                 </div>
 
                 <button

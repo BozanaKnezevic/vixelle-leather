@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import foxLogo from '../assets/fox-logo.png'
 import { ukupnaKolicina } from '../utils/cart'
+import { useCurrency } from '../context/CurrencyContext'
 
 function ucitajKorisnika() {
   const podaci = localStorage.getItem('korisnik')
@@ -13,7 +14,7 @@ function Navbar() {
   const [korisnik, setKorisnik] = useState(ucitajKorisnika)
   const [brojKorpe, setBrojKorpe] = useState(ukupnaKolicina)
   
-
+  const { valuta, setValuta } = useCurrency()
   const location = useLocation()
   const navigate = useNavigate()
   const jeHome = location.pathname === '/'
@@ -140,6 +141,17 @@ function Navbar() {
               </Link>
             </li>
             )}
+
+            <li className="nav-item">
+               <span
+               className="nav-link currency-switch"
+               onClick={() => setValuta(valuta === 'EUR' ? 'RSD' : 'EUR')}
+               style={{ cursor: 'pointer' }}
+               >
+                 <i className="bi bi-currency-exchange"></i>
+                 {valuta}
+              </span>
+            </li>
 
             {korisnik ? (
               <li className="nav-item">

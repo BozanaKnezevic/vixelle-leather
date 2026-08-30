@@ -9,9 +9,11 @@ import About from './pages/About'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
 import ProductDetail from './pages/ProductDetail'
+import { CurrencyProvider } from './context/CurrencyContext'
 
 function App() {
   return (
+  <CurrencyProvider>
     <BrowserRouter>
       <Navbar />
 
@@ -32,6 +34,7 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
+  </CurrencyProvider>
   )
 }
 

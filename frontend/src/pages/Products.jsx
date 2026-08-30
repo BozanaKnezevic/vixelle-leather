@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import Footer from '../components/Footer'
 import ProductCard from '../components/ProductCard'
+import { useCurrency } from '../context/CurrencyContext'
 
 const naziviTipova = {
   'torbe': 'Torbe',
@@ -28,6 +29,8 @@ function Products() {
   const proizvodaPoStranici = 6
 
   const kategorija = searchParams.get('kategorija') || 'sve'
+
+  const { formatirajCenu } = useCurrency()
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/products')

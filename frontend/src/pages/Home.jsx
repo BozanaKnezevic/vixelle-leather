@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Footer from '../components/Footer'
+import { useCurrency } from '../context/CurrencyContext'
 
 function Home() {
   const [products, setProducts] = useState([])
+
+  const { formatirajCenu } = useCurrency()
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/products')
@@ -138,7 +141,7 @@ function Home() {
                       </p>
 
                       <strong>
-                        {product.cena} €
+                        {formatirajCenu(product.cena)}
                       </strong>
 
                     </div>
