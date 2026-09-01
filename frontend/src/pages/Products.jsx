@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import Footer from '../components/Footer'
@@ -32,6 +32,8 @@ function Products() {
 
   const { formatirajCenu } = useCurrency()
 
+  const listaRef = useRef(null)
+
   useEffect(() => {
     axios.get('http://localhost:5000/api/products')
       .then((response) => {
@@ -47,6 +49,12 @@ function Products() {
   useEffect(() => {
     setTrenutnaStranica(1)
   }, [kategorija, tip, boja, cenaMin, cenaMax])
+
+  const idiNaVrhListe = () => {
+    if (listaRef.current) {
+      listaRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   // Sve dostupne boje, izvučene iz proizvoda (bez ponavljanja)
   const sveBoje = [...new Set(products.map((product) => product.boja))]
@@ -110,6 +118,8 @@ function Products() {
             <div className="col-12 col-lg-3">
 
               <div className="filters-sidebar">
+                
+                <h3 className="filters-title">Filteri</h3>
 
                 <div className="filter-group">
                   <h4>Kategorija</h4>
@@ -238,7 +248,7 @@ function Products() {
               )}
 
               {!ucitavanje && filtriraniProizvodi.length > 0 && (
-                <p className="products-count">
+                <p className="products-count" ref={listaRef}>
                   {filtriraniProizvodi.length} {filtriraniProizvodi.length === 1 ? 'proizvod' : 'proizvoda'}
                 </p>
               )}
@@ -261,7 +271,7 @@ function Products() {
               {ukupnoStranica > 1 && (
                 <div className="pagination">
                   <button
-                    onClick={() => setTrenutnaStranica(trenutnaStranica - 1)}
+                    onClick={() => { setTrenutnaStranica(trenutnaStranica - 1); idiNaVrhListe() }}
                     disabled={trenutnaStranica === 1}
                   >
                     ← Prethodna
@@ -271,14 +281,14 @@ function Products() {
                     <button
                       key={broj}
                       className={trenutnaStranica === broj ? 'active' : ''}
-                      onClick={() => setTrenutnaStranica(broj)}
+                      onClick={() => { setTrenutnaStranica(broj); idiNaVrhListe() }}
                     >
                       {broj}
                     </button>
                   ))}
 
                   <button
-                    onClick={() => setTrenutnaStranica(trenutnaStranica + 1)}
+                    onClick={() => { setTrenutnaStranica(trenutnaStranica + 1); idiNaVrhListe() }}
                     disabled={trenutnaStranica === ukupnoStranica}
                   >
                     Sledeća →

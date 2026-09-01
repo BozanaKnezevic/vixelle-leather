@@ -174,6 +174,20 @@ function ProductDetail() {
                     <i className="bi bi-bag-plus"></i>
                   </button>
 
+                  {(product.detaljniOpis || product.dimenzije) && (
+                    <div className="product-detail-extra">
+                      {product.dimenzije && (
+                        <p className="product-detail-dimenzije">
+                          <strong>Dimenzije:</strong> {product.dimenzije}
+                        </p>
+                      )}
+
+                      {product.detaljniOpis && (
+                        <p className="product-detail-desc">{product.detaljniOpis}</p>
+                      )}
+                    </div>
+                  )}
+
                 </div>
 
               </div>

@@ -25,6 +25,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+    detaljniOpis: {
+    type: String
+  },
+  dimenzije: {
+    type: String
+  },
   slikaGlavna: {
     type: String,
     required: true // putanja do slike, npr. "/products/bag-front.png"

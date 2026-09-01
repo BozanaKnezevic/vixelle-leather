@@ -24,7 +24,7 @@ function About() {
           <div className="row g-5 align-items-center about-section">
 
             <div className="col-12 col-md-6">
-              <img src="/images/hero.png" alt="Vixelle Leather zanat" className="about-image" />
+              <img src="/images/o-nama-1.jpg" alt="Vixelle Leather zanat" className="about-image" />
             </div>
 
             <div className="col-12 col-md-6">
@@ -46,7 +46,7 @@ function About() {
           <div className="row g-5 align-items-center about-section">
 
             <div className="col-12 col-md-6 order-md-2">
-              <img src="/images/women-collection.png" alt="Održivost Vixelle Leather" className="about-image" />
+              <img src="/images/o-nama-2.jpg" alt="Održivost Vixelle Leather" className="about-image" />
             </div>
 
             <div className="col-12 col-md-6 order-md-1">
@@ -71,7 +71,7 @@ function About() {
           <div className="row g-5 align-items-center about-section">
 
             <div className="col-12 col-md-6">
-              <img src="/images/men-collection.png" alt="Materijali Vixelle Leather" className="about-image" />
+              <img src="/images/o-nama-3.jpg" alt="Materijali Vixelle Leather" className="about-image" />
             </div>
 
             <div className="col-12 col-md-6">

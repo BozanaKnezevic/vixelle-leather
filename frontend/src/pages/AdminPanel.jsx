@@ -10,6 +10,8 @@ function AdminPanel() {
   const [noviProizvod, setNoviProizvod] = useState({
     naziv: '',
     opis: '',
+    detaljniOpis: '',
+    dimenzije: '',
     cena: '',
     kategorija: 'zene',
     tip: 'torbe',
@@ -91,6 +93,8 @@ function AdminPanel() {
     setNoviProizvod({
       naziv: '',
       opis: '',
+      detaljniOpis: '',
+      dimenzije: '',
       cena: '',
       kategorija: 'zene',
       tip: 'torbe',
@@ -107,6 +111,8 @@ function AdminPanel() {
     setNoviProizvod({
       naziv: product.naziv,
       opis: product.opis,
+      detaljniOpis: product.detaljniOpis || '',
+      dimenzije: product.dimenzije || '',
       cena: product.cena,
       kategorija: product.kategorija,
       tip: product.tip,
@@ -228,6 +234,28 @@ function AdminPanel() {
                     required
                   />
                 </div>
+
+                <div className="form-group">
+                  <label>Detaljan opis (za stranicu proizvoda)</label>
+                  <textarea
+                   name="detaljniOpis"
+                   value={noviProizvod.detaljniOpis}
+                   onChange={handleFormChange}
+                   rows={5}
+                   placeholder="Duži, opisniji tekst o proizvodu..."
+                  />
+               </div>
+
+               <div className="form-group">
+                 <label>Dimenzije</label>
+                 <input
+                  type="text"
+                  name="dimenzije"
+                  value={noviProizvod.dimenzije}
+                  onChange={handleFormChange}
+                  placeholder="npr. 21 x 13 x 6 cm"
+                 />
+               </div>
 
                 <div className="form-group">
                   <label>Cena (€)</label>

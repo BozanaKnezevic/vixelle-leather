@@ -1198,6 +1198,17 @@
   margin-bottom: 15px;
 }
 
+.filters-title {
+  color: #c9a66b;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e5dcc9;
+}
+
+
 .filter-group label {
   display: flex;
   align-items: center;
@@ -1316,6 +1327,7 @@
   color: #6b5548;
   font-size: 14px;
   margin-bottom: 20px;
+  scroll-margin-top: 130px;
 }
 
 
@@ -1491,6 +1503,17 @@
   font-size: 15px;
 }
 
+.admin-modal .form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8cabe;
+  background-color: #f5efe6;
+  color: #2b1a14;
+  font-size: 15px;
+  font-family: inherit;
+  resize: vertical;
+}
+
 .admin-modal-dugmad {
   display: flex;
   gap: 12px;
@@ -1663,6 +1686,22 @@
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
+}
+
+.product-detail-dimenzije {
+  color: #6b5548;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.product-detail-dimenzije strong {
+  color: #2b1a14;
+}
+
+.product-detail-extra {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid #e5dcc9;
 }
 
 .product-detail-desc {
@@ -1948,7 +1987,7 @@
 }
 
 .cart-eyebrow {
-  color:  #c9a66b;
+  color:  #9f6906;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 4px;
